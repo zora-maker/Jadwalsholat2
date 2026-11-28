@@ -1,4 +1,4 @@
-name: Build Signed APK
+name: Build Signed APK and AAB
 
 on:
   push:
@@ -35,16 +35,24 @@ jobs:
           echo "$KEYSTORE_BASE64" | base64 --decode \
             > "$RUNNER_TEMP/release.jks"
 
-      - name: Build Signed APK
+      - name: Build Signed APK dan AAB
         working-directory: ${{ env.PROJECT_DIR }}
         env:
           STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEYSTORE_FILE: ${{ runner.temp }}/release.jks
-        run: gradle bundleRelease --no-daemon
+        run: |
+          gradle assembleRelease bundleRelease --no-daemon
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: jadwal-sholat-release-apk
+          path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/release/*.apk
+
+      - name: Upload Release AAB
+        uses: actions/upload-artifact@v4
         with:
           name: jadwal-sholat-release-aab
           path: ${{ env.PROJECT_DIR }}/app/build/outputs/bundle/release/*.aab
