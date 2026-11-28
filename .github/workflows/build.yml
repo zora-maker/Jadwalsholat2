@@ -42,7 +42,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEYSTORE_FILE: ${{ runner.temp }}/release.jks
-        run: gradle bundleleRelease --no-daemon
+        run: gradle bundleRelease --no-daemon
 
       - uses: actions/upload-artifact@v4
         with:
