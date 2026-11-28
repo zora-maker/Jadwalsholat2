@@ -42,9 +42,9 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEYSTORE_FILE: ${{ runner.temp }}/release.jks
-        run: gradle assembleRelease --no-daemon
+        run: gradle bundleleRelease --no-daemon
 
       - uses: actions/upload-artifact@v4
-        with:
-          name: jadwal-sholat-release-apk
-          path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/release/*.apk
+  with:
+    name: jadwal-sholat-release-aab
+    path: ${{ env.PROJECT_DIR }}/app/build/outputs/bundle/release/*.aab
