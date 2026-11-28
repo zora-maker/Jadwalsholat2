@@ -45,6 +45,6 @@ jobs:
         run: gradle bundleleRelease --no-daemon
 
       - uses: actions/upload-artifact@v4
-  with:
-    name: jadwal-sholat-release-aab
-    path: ${{ env.PROJECT_DIR }}/app/build/outputs/bundle/release/*.aab
+        with:
+          name: jadwal-sholat-release-aab
+          path: ${{ env.PROJECT_DIR }}/app/build/outputs/bundle/release/*.aab
